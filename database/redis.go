@@ -14,9 +14,9 @@ var Ctx = context.Background()
 
 func ConnectRedis() {
 	RedisClient = redis.NewClient(&redis.Options{
-		Addr:     config.GetEnv("REDIS_URL"),
-		Password: config.GetEnv("REDIS_PASSWORD"), // password from env
-		DB:       0,                               // use default DB
+		Addr: config.GetEnv("REDIS_URL"),
+		//Password: config.GetEnv("REDIS_PASSWORD"), // password from env
+		DB: 0, // use default DB
 	})
 
 	_, err := RedisClient.Ping(Ctx).Result()
