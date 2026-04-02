@@ -6,6 +6,7 @@ import (
 	"email-dispatcher/database"
 	"email-dispatcher/mailer"
 	"email-dispatcher/worker"
+	"net/http"
 
 	"github.com/gin-gonic/gin"
 )
@@ -38,4 +39,17 @@ func main() {
 
 	// Start server
 	r.Run(":" + config.GetEnv("PORT"))
+
+	port := config.GetEnv("PORT")
+	if port == "" {
+		port = "8080"
+	}
+
+	srv := &http.Server{
+		Addr:    ":" + port,
+		Handler: r,
+	}
+
+	srv.ListenAndServe()
+
 }
