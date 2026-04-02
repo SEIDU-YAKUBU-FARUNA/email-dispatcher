@@ -62,6 +62,8 @@ func (w *Worker) Start() {
 
 				log.Println("Attempt failed:", retry, err)
 
+				database.IncrementRetry(job.ID)
+
 				// If max retries reached → fail permanently
 				if retry == MaxRetries {
 					database.UpdateEmailStatus(job.ID, "failed")
